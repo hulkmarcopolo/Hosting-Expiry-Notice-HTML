@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hosting Expiry Notice</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(#0193DD, black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+            text-align: center; /* Center the text inside .container */
+        }
+
+        h1 {
+            color: #e74c3c; /* Red color for emphasis */
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 40px;
+        }
+
+        /* Change the color of the second counter to red */
+        .countdown #seconds {
+            color: red;
+        }
+
+        /* Make the clock counter font bigger and change the font type */
+        .countdown span {
+            margin: 0 10px;
+            font-size: 40px; /* Increase the font size */
+            font-family: "Bigger Display Font", Arial, sans-serif; /* Change font type */
+        }
+
+        /* Animation keyframes for fade-in effect */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 20px; /* Adjust the top position */
+            left: 20px; /* Adjust the left position */
+            width: 120px; /* Adjust the width of the logo panel box */
+            height: 30px; /* Adjust the height of the logo panel box */
+            background-color: rgba(255, 255, 255, 0.7); /* Transparent light color */
+            border-radius: 10px; /* Add rounded corners to the logo panel box */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            max-width: 80%; /* Make sure the logo fits within the logo panel box */
+            max-height: 80%; /* Make sure the logo fits within the logo panel box */
+        }
+
+        /* Add this style for the expiration notice */
+        .expiration-notice {
+            display: none; /* Initially hide the expiration notice */
+            color: #e74c3c; /* Red color for emphasis */
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="bcgg.png" alt="Your Logo" class="logo">
+    </div>
+    
+    <div class="container">
+        <h1>Dear John Doe Admin,</h1>
+        <p>Your hosting has expired and requires renewal to be live on the internet. Site and resources will be purged within:</p>
+        <div class="countdown">
+            <span id="days"></span> Days
+            <span id="hours"></span> Hours
+            <span id="minutes"></span> Minutes
+            <span id="seconds"></span> Seconds
+        </div>
+
+        <!-- Add this div for the expiration notice -->
+        <div class="expiration-notice">
+            Dear John Doe, your hosting has expired and will be purged from our servers on 8th October 2023. Thank you for choosing our service.
+        </div>
+    </div>
+
+    <script>
+        // Set the date we're counting down to
+        const countDownDate = new Date("October 1, 2023 23:59:00").getTime();
+
+        // Update the countdown every 1 second
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the countdown in the HTML
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            // If the countdown is over, hide countdown and show expiration notice
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".countdown").style.display = "none";
+                document.querySelector(".expiration-notice").style.display = "block";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
